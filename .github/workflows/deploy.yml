@@ -19,6 +19,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -27,16 +28,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract website
+      - name: Extract wedding website
         run: |
           mkdir -p site
           unzip -q Wedding_Invitation_Website.zip
           cp -R sandeep-vaishnavi-wedding/. site/
 
-      - name: Configure Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
-      - name: Upload website
+      - name: Upload website files
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
